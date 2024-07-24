@@ -3,12 +3,14 @@ const Joi =require('joi');
 const signupValidation=(req,res, next)=>{
     const  schema=Joi.object({
         name:Joi.string().min(3).max(100).required(),
-        age:Joi.number().required(),
-
         email:Joi.string().email().required(),
+
+        age:Joi.number().required(),
+        username:Joi.string().min(6).max(20).required(),
+
         password:Joi.string().min(4).max(100).required(),
-        username:Joi.string().min(6).max(20).required()
     })
+    console.log("data here ",req.body)
     const {error}=schema.validate(req.body);
     if(error){
         return res.status(400)

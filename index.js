@@ -8,8 +8,12 @@ const cors= require('cors');
 const signup=require('./routers/signup.js')
 const dashboard=require('./routers/dashboard.js')
 const login=require('./routers/login.js')
-
+const PORT= process.env.PORT
 app.use(bodyparser.json());
+
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
 app.use(cors());
 app.get('/',(req,res)=>{
     res.send("HomePage");

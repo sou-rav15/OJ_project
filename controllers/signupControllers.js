@@ -5,6 +5,7 @@ const signup=async(req,res)=>{
     try {
         const{name,age,email, password,username}
 =req.body;
+console.log(req.body)
 const Email=  await User.findOne({email})
 const Username= await User.findOne({username})
 //checking if user is already login into our website
