@@ -10,7 +10,7 @@ const signupValidation=(req,res, next)=>{
 
         password:Joi.string().min(4).max(100).required(),
     })
-    console.log("data here ",req.body)
+    // console.log("data here ",req.body)
     const {error}=schema.validate(req.body);
     if(error){
         return res.status(400)
@@ -29,6 +29,7 @@ const loginValidation=(req,res, next)=>{
         password:Joi.string().min(4).max(100).required(),
         username:Joi.string().min(6).max(20)
     })
+    console.log("data here ",req.body)
     const {error}=schema.validate(req.body);
     if(error){
         return res.status(400)
