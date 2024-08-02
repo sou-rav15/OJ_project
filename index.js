@@ -10,8 +10,10 @@ const dashboard=require('./routers/dashboard.js')
 const login=require('./routers/login.js')
 const Problem= require('./routers/Problems.js');
 // const Problems = require('./models/Problems.js');
-const Run= require('./routers/Run.js')
-const PORT= process.env.PORT
+const Run= require('./routers/Run.js');
+const TestCase= require('./routers/TestCase.js');
+const CheckTestCase=require('./routers/CheckTestCases.js')
+const PORT= process.env.PORT||8000;
 app.use(bodyparser.json());
 
 app.use(express.json());
@@ -24,34 +26,14 @@ app.get('/run',(req,res)=>{
 })
 
 
-// app.post('/Problems',async (req,res)=>{
-//     console.log(req.body);
-//     try {
-//     const data=req.body;
-//     const newProblem= new Problems(data);
-//     const response =await newProblem.save()
-// res.status(200).json(response);
-// } catch (error) {
-//     console.log(error);
-//     res.status(200).json({error:"Internal server errro during storing problens"})
-    
-// }
-
-// });
-// app.post('/',(req,res)=>{
-//     try {
-//         res.send('het')
-//     } catch (error) {
-//           res.send("oops")
-//     }
-  
-// })
 app.use('/login',login);
 
 app.use('/signup',signup);
 app.use('/Problems',Problem)
 app.use('/dashboard',dashboard);
-app.use('/run',Run)
+app.use('/run',Run);
+app.use('/Testcases',TestCase);
+app.use('/CheckTestCases',CheckTestCase);
 // app.post('/login',(req,res)=>{
 //     res.send('login succes')
 // })
@@ -67,7 +49,9 @@ app.use('/run',Run)
 //         res.status(500).json({error:'Inter sever Error'})
 //     }
 // })
-
+// app.get('/Testcases',(req,res)=>{
+//     res.send('hey')
+// })
 app.listen(8000,()=>{
     console.log('server is running');
 })

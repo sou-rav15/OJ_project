@@ -14,7 +14,18 @@ const ProblemSchema = new mongoose.Schema(
             type:String,
             required:true,
         },
-        tags:[String]
+        tags:[String],
+        timeLimit: {
+            type: Number,
+            required: true,
+        },
+        note: {
+            type: String,
+        },
+        constraints: {
+            type: [String], // Array of strings if there are multiple constraints
+            required: true,
+        }
     },{timestamps:true});
 
  const Problems = mongoose.model('Problems',ProblemSchema);

@@ -23,6 +23,62 @@ router.get('/',async(req,res)=>{
     } catch (error) {
         console.log('error in findind data')
     }
-})
+});
+router.get('/:id', async (req, res) => {
+    try {
+        const problemId = req.params.id;
+        const data = await Problems.findById(problemId);
+
+        if (!data) {
+            return res.status(404).json({ message: 'Problem not found' });
+        }
+
+        console.log('Fetched data');
+        res.status(200).json(data);
+    } catch (error) {
+        console.error('Error in finding data', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+
+router.put('/problems/:id', async (req, res) => {
+    try {
+        const updatedProblem = await Problems.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+        if (!updatedProblem) {
+            return res.status(404).json({ message: 'Problem not found' });
+        }
+        res.json(updatedProblem);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+router.put('/:id', async (req, res) => {
+    try {
+        const problemId = req.params.id;
+        const updatedData = req.body;
+        
+        const updatedProblem = await Problems.findByIdAndUpdate(problemId, updatedData, {
+            new: true, // Returns the updated document
+            runValidators: true, // Ensures the updated data conforms to the model's schema
+        });
+
+        if (!updatedProblem) {
+            return res.status(404).json({ error: "Problem not found" });
+        }
+
+        res.status(200).json(updatedProblem);
+    } catch (error) {
+        console.log('Error updating problem', error);
+        res.status(500).json({ error: "Internal server error during updating problem" });
+    }
+});
+
 
 module.exports=router;

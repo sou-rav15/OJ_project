@@ -38,7 +38,7 @@ const ispasswordemail=await bcrypt.compare(password,user.password);
 // const ispasswordusername= await bcrypt.compare(password,Username.password);
 // console.log(!ispasswordemail);
 if(!ispasswordemail){
-    return res.status(403).json({message:'errormsg',sucess:false});//err-> password is wrong
+    return res.status(403).json({message:'invalid details',sucess:false});//err-> password is wrong
 
 }
 
@@ -53,7 +53,7 @@ const jwtoken= jwt.sign(
  res.status(200).json({
     message:'login successfully',
     success:true,
-    jwtoken,email,name:user.name
+    jwtoken,email,name:user.name,username:user.username
  })
 } catch (error) {
     res.status(500).json({message:"INTERNAL SERVER ERROR",succes:true}

@@ -5,13 +5,14 @@ const signup=async(req,res)=>{
     try {
         const{name,age,email, password,username}
 =req.body;
-console.log(req.body)
-const Email=  await User.findOne({email})
-const Username= await User.findOne({username})
+console.log(req.body);
+const Email=  await User.findOne({email});
+const Username= await User.findOne({username});
+console.log('data is->',Email)
 //checking if user is already login into our website
 if(Email||Username){
     return res.status(409)
-    .json({message:'user is already exist, you can logi',succes:false});
+    .json({message:'user is already exist, you can login',success:false,Username});
 
 }
 
@@ -21,7 +22,8 @@ const userModel= new User({name,age,email,username,password})
  res.status(201).json({
     message:'signup successfully',
     success:true,
-    data:req.body
+    data:req.body,
+    userModel
  })
 } catch (error) {
     res.status(500).json({message:"INTERNAL SERVER ERROR",succes:true}
