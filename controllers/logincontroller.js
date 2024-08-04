@@ -28,7 +28,7 @@ else{
 //checking if user is already login into our website
 if(!user){
     return res.status(403)
-    .json({message:'username and email not found',succes:false});
+    .json({message:'username and email not found',success:false});
 
 }
 console.log("email and username found");
@@ -53,7 +53,7 @@ const jwtoken= jwt.sign(
  res.status(200).json({
     message:'login successfully',
     success:true,
-    jwtoken,email,name:user.name,username:user.username
+    jwtoken,email,name:user.name,username:user.username,userId:user._id
  })
 } catch (error) {
     res.status(500).json({message:"INTERNAL SERVER ERROR",succes:true}

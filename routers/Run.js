@@ -11,8 +11,8 @@ const router= require('express').Router();
 
 router.post('/',async(req,res)=>{
     console.log(req.body)
-    const {language="cpp",code,input}= await req.body;
-    console.log('language is ',language);
+    const {language,code,input}= await req.body;
+    // console.log('language is ',language);
     let output;
     if(code=== undefined){
         return res.status(500).json({success:false, message:'empty code'})

@@ -25,13 +25,13 @@ const TestCasesSchema= new mongoose.Schema(
           required: true
         },
         input: {
-          type: Schema.Types.Mixed,  // Flexible type to handle various formats
+          type: [mongoose.Schema.Types.Mixed],  
           // type:[Object],
-          required: true
+          // required: true
         },
         expected_output: {
-          type: Schema.Types.Mixed,  // Flexible type to handle various formats
-          required: true
+          type: mongoose.Schema.Types.Mixed,  
+          // required: true
         }
       
     },

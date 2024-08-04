@@ -1,14 +1,15 @@
 const User= require('../models/user.js');
 const jwt=require('jsonwebtoken');
 const bcrypt =require('bcrypt');
+const Profile = require('../models/Profile.js');
 const signup=async(req,res)=>{
     try {
         const{name,age,email, password,username}
 =req.body;
-console.log(req.body);
+// console.log(req.body);
 const Email=  await User.findOne({email});
 const Username= await User.findOne({username});
-console.log('data is->',Email)
+// console.log('data is->',Email)
 //checking if user is already login into our website
 if(Email||Username){
     return res.status(409)
@@ -19,11 +20,18 @@ if(Email||Username){
 const userModel= new User({name,age,email,username,password})
  userModel.password=await bcrypt.hash(password,10);
  await userModel.save();
+ const userId=userModel._id;
+//  console.log('user id is =>',userId);
+ 
+ const userProfile= new Profile({userId,name,age,email ,username});
+ await userProfile.save();
  res.status(201).json({
     message:'signup successfully',
     success:true,
     data:req.body,
-    userModel
+    userModel,
+    userProfile,
+    userId:userModel._id
  })
 } catch (error) {
     res.status(500).json({message:"INTERNAL SERVER ERROR",succes:true}

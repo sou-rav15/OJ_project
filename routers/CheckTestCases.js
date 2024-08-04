@@ -16,9 +16,9 @@ const TestCases=require('../models/Testcases.js');
 
     router.post('/', async (req, res) => {
 
-        console.log('data is->',req.body)
+        // console.log('data is->',req.body)
     const {language,code, problem_id: problemId}= await req.body;
-    console.log('language is ',language,'problemid->',req.body.problem_id);
+    // console.log('language is ',language,'problemid->',req.body.problem_id);
   
     if(code=== undefined){
         return res.status(500).json({success:false, message:'empty code'})
@@ -33,20 +33,20 @@ const TestCases=require('../models/Testcases.js');
 
             TestcaseInput=testCases[0].input;
             const Output = testCases[0].expected_output; // Adjust as needed
-console.log('Output is ->',Output)
-    console.log('testCase is->',testCases);
+// console.log('Output is ->',Output)
+    // console.log('testCase is->',testCases);
             // Array to hold the results for each test case
             let results = [];
     let i=0;
             for (let inputs of TestcaseInput) {
                 const  input =inputs ;
-    console.log('input is ->',input);
+    // console.log('input is ->',input);
     // inputpath jaha input store hoga
     const inputPath = await generateTestInputFile(input);
     // Execute the code with the input
     const expectedOutput=Output[i];
     i=i+1;
-    console.log(expectedOutput,i)
+    // console.log(expectedOutput,i)
                 let actualOutput;
                 let isAccepted;
     
@@ -57,9 +57,9 @@ console.log('Output is ->',Output)
                 } else if (language === 'python') {
                     actualOutput = await executePython(filePath, input);
                 }
-    console.log('actual output->', actualOutput.trim());
-    console.log('actual output->', typeof(actualOutput));
-console.log('type->',typeof(expectedOutput));
+    // console.log('actual output->', actualOutput.trim());
+    // console.log('actual output->', typeof(actualOutput));
+// console.log('type->',typeof(expectedOutput));
 
     if (typeof expectedOutput === 'string'){
          actualOutput = actualOutput.replace(/^"|"$/g, '').replace(/\\"$/, '').trim();
@@ -72,7 +72,7 @@ console.log('type->',typeof(expectedOutput));
     }
     else {
         actualOutput = actualOutput.trim().split(" ").map(Number);
-console.log('inside else if->',actualOutput);
+// console.log('inside else if->',actualOutput);
 
         // Compare actual output with expected output
          isAccepted = JSON.stringify(actualOutput) === JSON.stringify(expectedOutput);
@@ -80,7 +80,8 @@ console.log('inside else if->',actualOutput);
             // Compare actual output with expected output
          
     }
-  console.log('actual ouptut here->',actualOutput)
+//   console.log('actual ouptut here->',actualOutput)
+//   console.log('expected ouptut here->',expectedOutput)
     console.log(isAccepted) 
                 // Store the result
                 results.push({

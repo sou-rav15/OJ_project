@@ -1,12 +1,18 @@
 
 const router= require('express').Router();
 const Problems=require('../models/Problems.js');
+const TestCase = require('../models/Testcases.js');
 
 router.post('/',async (req,res)=>{
     try {
     const data=req.body;
     const newProblem= new Problems(data);
-    const response =await newProblem.save()
+    const response =await newProblem.save();
+const ProblemId=newProblem._id;
+console.log('problem id isss->',ProblemId);
+
+    const newTestcase= TestCase({problem_id:ProblemId});
+    await newTestcase.save();
 res.status(200).json(response);
 } catch (error) {
     console.log(error);
@@ -42,21 +48,21 @@ router.get('/:id', async (req, res) => {
 });
 
 
-router.put('/problems/:id', async (req, res) => {
-    try {
-        const updatedProblem = await Problems.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true, runValidators: true }
-        );
-        if (!updatedProblem) {
-            return res.status(404).json({ message: 'Problem not found' });
-        }
-        res.json(updatedProblem);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
+// router.put('/problems/:id', async (req, res) => {
+//     try {
+//         const updatedProblem = await Problems.findByIdAndUpdate(
+//             req.params.id,
+//             req.body,
+//             { new: true, runValidators: true }
+//         );
+//         if (!updatedProblem) {
+//             return res.status(404).json({ message: 'Problem not found' });
+//         }
+//         res.json(updatedProblem);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
 
 
 router.put('/:id', async (req, res) => {

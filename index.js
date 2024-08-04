@@ -13,6 +13,9 @@ const Problem= require('./routers/Problems.js');
 const Run= require('./routers/Run.js');
 const TestCase= require('./routers/TestCase.js');
 const CheckTestCase=require('./routers/CheckTestCases.js')
+const UserRoute=require('./routers/User.js');
+const ProfileRoute= require('./routers/Profile.js');
+const Profile = require('./models/Profile.js');
 const PORT= process.env.PORT||8000;
 app.use(bodyparser.json());
 
@@ -20,10 +23,13 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 app.use(cors());
-app.get('/run',(req,res)=>{
+app.get('/',(req,res)=>{
     res.send("HomePage");
 
 })
+
+
+
 
 
 app.use('/login',login);
@@ -34,24 +40,9 @@ app.use('/dashboard',dashboard);
 app.use('/run',Run);
 app.use('/Testcases',TestCase);
 app.use('/CheckTestCases',CheckTestCase);
-// app.post('/login',(req,res)=>{
-//     res.send('login succes')
-// })
-// app.post('/signup',async(req,res)=>{
-//     try {
-//         const data =await req.body;
-//         const newUSer= new User(data);
-//         const response=  await newUSer.save();
-//         console.log("data saved");
-//         res.status(200).json(response); 
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).json({error:'Inter sever Error'})
-//     }
-// })
-// app.get('/Testcases',(req,res)=>{
-//     res.send('hey')
-// })
+app.use('/User',UserRoute);
+app.use('/Profile',ProfileRoute);
+
 app.listen(8000,()=>{
     console.log('server is running');
 })
