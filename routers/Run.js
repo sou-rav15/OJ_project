@@ -12,7 +12,7 @@ const router= require('express').Router();
 router.post('/',async(req,res)=>{
     console.log(req.body)
     const {language,code,input}= await req.body;
-    // console.log('language is ',language);
+    console.log('language is ',language);
     let output;
     if(code=== undefined){
         return res.status(500).json({success:false, message:'empty code'})
@@ -35,6 +35,11 @@ if(language=== 'cpp'){
      else if(language==='py')  {
         console.log('py');
         output= await executePython(filePath,inputPath);
+     }
+       
+     else if(language==='java')  {
+        console.log('java');
+        output= await executeJava(filePath,inputPath);
      }
        
      // console.log('output is',filePath)

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose 
 
-const TestCasesSchema= new mongoose.Schema(
+const TestCasesSchema2= new mongoose.Schema(
     {
 
         // problem_id: {
@@ -25,7 +25,7 @@ const TestCasesSchema= new mongoose.Schema(
           required: true
         },
         input: {
-          type: mongoose.Schema.Types.Mixed,  
+          type: [mongoose.Schema.Types.Mixed],  
           // type:[Object],
           // required: true
         },
@@ -37,6 +37,6 @@ const TestCasesSchema= new mongoose.Schema(
     },
     {timestamps:true});
 
-    const TestCase= mongoose.model('TestCase',TestCasesSchema);
+    const TestCase2= mongoose.model('TestCase2',TestCasesSchema2);
 
-    module.exports=TestCase;
+    module.exports=TestCase2;

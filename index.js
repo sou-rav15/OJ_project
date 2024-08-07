@@ -12,10 +12,14 @@ const Problem= require('./routers/Problems.js');
 // const Problems = require('./models/Problems.js');
 const Run= require('./routers/Run.js');
 const TestCase= require('./routers/TestCase.js');
+const TestCase2=require('./routers/TestCase2.js')
 const CheckTestCase=require('./routers/CheckTestCases.js')
+const CheckTestCase2=require('./routers/CheckTestCases2.js')
 const UserRoute=require('./routers/User.js');
 const ProfileRoute= require('./routers/Profile.js');
 const Profile = require('./models/Profile.js');
+const CodeSave = require('./routers/codeSave.js');
+
 const PORT= process.env.PORT||8000;
 app.use(bodyparser.json());
 
@@ -39,11 +43,13 @@ app.use('/Problems',Problem)
 app.use('/dashboard',dashboard);
 app.use('/run',Run);
 app.use('/Testcases',TestCase);
+app.use('/Testcases2',TestCase2);
 app.use('/CheckTestCases',CheckTestCase);
+app.use('/CheckTestCases2',CheckTestCase2);
 app.use('/User',UserRoute);
 app.use('/Profile',ProfileRoute);
-
-app.listen(8000,()=>{
+app.use('/codeSave',CodeSave);
+app.listen(3000,()=>{
     console.log('server is running');
 })
 

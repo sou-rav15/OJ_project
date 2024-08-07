@@ -1,5 +1,6 @@
 const router =require('express').Router();
-const TestCase=require('../models/Testcases.js');
+// const TestCase=require('../models/Testcases.js');
+const TestCase2 = require('../models/Testcases2.js');
 // to save test cases in database
 router.post('/',async (req,res)=>{
     console.log('here');
@@ -8,7 +9,7 @@ router.post('/',async (req,res)=>{
             return res.json({message:'empty '})
         }
     const data=req.body;
-    const newTestCase= new TestCase(data);
+    const newTestCase= new TestCase2(data);
     const response =await newTestCase.save()
 res.status(200).json(response);
 } catch (error) {
@@ -19,24 +20,25 @@ res.status(200).json(response);
 
 });
 router.get('/',async(req,res)=>{
-    // res.json('hey')
+    res.json('hey')
     try {
-        const data = await TestCase.find();
+        const problemid=req.params.id;
+        const data = await TestCase2.findOne({problem_id:problemid});
         console.log('fetched data');
         res.status(200).json(data)
     } catch (error) {
-        console.log('error in findind data',error)
+        console.log('error in findind data')
     }
 });
 router.get('/:id',async(req,res)=>{
     // res.json('hey')
     try {
         const problemid=req.params.id;
-        const data = await TestCase.findOne({problem_id:problemid});
-        console.log('fetched data',data);
+        const data = await TestCase2.findOne({problem_id:problemid});
+        console.log('fetched data');
         res.status(200).json(data)
     } catch (error) {
-        console.log('error in findind data',error)
+        console.log('error in findind data')
     }
 });
 
@@ -51,7 +53,7 @@ router.put('/:id', async (req, res) => {
         const { input, expected_output } = req.body;
 console.log('req.body',req.body)
         // Find the test case by ID and update it
-        const updatedTestCase = await TestCase.findOneAndUpdate(
+        const updatedTestCase = await TestCase2.findOneAndUpdate(
            {problem_id:id},
             { input, expected_output },
             { new: true, runValidators: true }

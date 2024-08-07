@@ -1,3 +1,4 @@
+const ensureAuthentication = require('../middleware/dashboardValidation');
 const Profile = require('../models/Profile');
 const User = require('../models/user');
 
@@ -10,7 +11,7 @@ res.json({message:'hey',user})
 })
 
 
-router.get('/:id', async (req, res) => {
+router.get('/:id',ensureAuthentication, async (req, res) => {
     try {
         const userID = req.params.id;
         const data = await Profile.findOne({userId:userID});
